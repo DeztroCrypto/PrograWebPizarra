@@ -1,0 +1,41 @@
+.canvas-container{
+    border: 2px solid black;    
+}
+div.pizarra{
+    width: 50%;
+}
+.boton_imagen{
+    border-width: 0px;
+    background-color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.boton_imagen:hover{
+    background-color: grey;
+}
+
+.imagen{
+    height: 40px;
+    width: 40px;
+    margin-left: 10px;
+}
+
+.boton_color{
+    width: 40px;
+    height: 40px;
+    margin-right: 7px;
+    box-sizing: border-box;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.selector_color{
+    position: relative;
+    width: 40px;
+    height: 40px;
+    top: 10px;
+    align-items: center;
+    border:none;
+    background-color: white;
+}
+
