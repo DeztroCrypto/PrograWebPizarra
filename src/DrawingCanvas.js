@@ -1,23 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
 import './styles.css'
 import './w3.css'
-import imagenes from './imagenes'
-
+let img = new Image()
 export function subir_imagen() {
-  const canvasRef = document.getElementById('pizarra')
-
-  const canvas = canvasRef;
-
-  const context = canvas.getContext("2d");
-  var img = new Image();
-  img.src = imagenes[2].src;
-  console.log(img)
-  img.onload = function () {
-    context.drawImage(img, 0, 0, canvas.width, canvas.height);
-    console.log("intentaste subir la img")
-  }
-
+  const file = document.querySelector('input[type=file]').files[0]
+  const canvas = document.getElementById('pizarra')
+  const context = canvas.getContext('2d')
+  
+  img.src = URL.createObjectURL(file)
+   
+  img.onload = () => {
+      
+    context.drawImage(img,0,0) 
+    }
+    console.log(img)
+  
 }
+
 
 const DrawingCanvas = (props) => {
   let color = props.color
