@@ -6,12 +6,11 @@ import Barra_Grosor from "./Barra_Grosor";
 import Barra_Funciones from "./Barra_Funciones";
 import "./styles.css"
 import "./w3.css"
-import Subir_Imagen from "./Subir_Imagen";
 import Barra_Figuras from "./Barra_Figuras";
 
 
 function App() {
-    const [figuraCuadrado,setCuadrado] = useState(false)
+    const [figura,setFigura] = useState("linea")
     const [colorAct,setColor] = useState("black")
     const [grosorAct,setGrosor] = useState(1)
 
@@ -24,13 +23,21 @@ function App() {
     }
 
     const cambiar_lapiz = () => {
-        setCuadrado(false)
+        setFigura("linea")
         setColor("black")
     }
 
     const cambiar_borrador = () => {
-        setCuadrado(false)
+        setFigura("linea")
         setColor("white")
+    }
+
+    const dibujarCuadrado = () => {
+        setFigura("cuadrado")
+    }
+
+    const dibujarTriangulo = () => {
+        setFigura("triangulo")
     }
 
     const limpiar_pizarra = () => {
@@ -39,23 +46,22 @@ function App() {
         context.fillStyle = "white";
         context.clearRect(0, 0, canvas.width, canvas.height);
       }
-
+    
     return <div className="w3-container">
         <div className ="w3-col pizarra">
             <DrawingCanvas 
-                figuraCuadrado={figuraCuadrado}
                 color = {colorAct}
                 grosor = {grosorAct}
+                figura = {figura}
             />
             <Barra_Herramientas funcionPincel = {cambiar_lapiz} funcionBorrador = {cambiar_borrador}/>
             <Barra_Colores funcionColor = {cambiar_color}/>
             <Barra_Grosor funcionGrosor = {cambiar_grosor}/>
+
             <Barra_Funciones funcionLimpiar = {limpiar_pizarra}/>
-            <Barra_Figuras/>
-            <Subir_Imagen/>
+            <Barra_Figuras funcionFiguraCuadrado = {dibujarCuadrado} funcionFiguraTriangulo = {dibujarTriangulo}/>
+
         </div>
-
-
     </div>
 
 }
