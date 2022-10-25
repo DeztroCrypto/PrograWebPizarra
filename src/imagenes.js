@@ -1,5 +1,7 @@
 import lapiz from "./imagenes/lapiz.png"
 import borrador from "./imagenes/borrador.png"
+import cuadrado from "./imagenes/cuadrado.png"
+import triangulo from "./imagenes/triangulo.png"
 import imgP from "./imagenes/images.jpg"
 
 export default [
@@ -14,5 +16,14 @@ export default [
     {
         "src": imgP,
         "titulo": "imagen"
+    },
+    {
+        "src": cuadrado,
+        "titulo": "cuadrado"
+    },
+    {
+        "src": triangulo,
+        "titulo": "triangulo"
     }
+
 ]

@@ -2,44 +2,26 @@ import { useEffect, useRef, useState } from 'react'
 import './styles.css'
 import './w3.css'
 import imagenes from './imagenes'
-let color = "black"
-let grosor = 1
 
-export function limpiar_pizarra(){
+export function subir_imagen() {
   const canvasRef = document.getElementById('pizarra')
-  console.log(canvasRef)
 
-  const context = canvasRef.getContext("2d");
-  context.fillStyle = "white";
-  context.clearRect(0,0,canvasRef.width,canvasRef.height);
-}
-
-export function subir_imagen(){
-  const canvasRef = document.getElementById('pizarra')
-  
   const canvas = canvasRef;
-  
+
   const context = canvas.getContext("2d");
   var img = new Image();
   img.src = imagenes[2].src;
   console.log(img)
-  img.onload = function(){
-    context.drawImage(img,0,0,canvas.width,canvas.height);
+  img.onload = function () {
+    context.drawImage(img, 0, 0, canvas.width, canvas.height);
     console.log("intentaste subir la img")
   }
-  
+
 }
 
-export function cambiar_color(element) {
-  color = element
-}
-
-export function cambiar_grosor(element) {
-  console.log(element)
-  grosor = element
-}
-
-const DrawingCanvas = () => {
+const DrawingCanvas = (props) => {
+  let color = props.color
+  let grosor = props.grosor
   const canvasRef = useRef(null);
   const contextRef = useRef(null);
 
