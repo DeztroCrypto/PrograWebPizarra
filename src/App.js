@@ -6,7 +6,6 @@ import Barra_Grosor from "./Barra_Grosor";
 import Barra_Funciones from "./Barra_Funciones";
 import "./styles.css"
 import "./w3.css"
-import Subir_Imagen from "./Subir_Imagen";
 import Barra_Figuras from "./Barra_Figuras";
 
 
@@ -39,7 +38,7 @@ function App() {
         context.fillStyle = "white";
         context.clearRect(0, 0, canvas.width, canvas.height);
       }
-
+    
     return <div className="w3-container">
         <div className ="w3-col pizarra">
             <DrawingCanvas 
@@ -50,9 +49,8 @@ function App() {
             <Barra_Herramientas funcionPincel = {cambiar_lapiz} funcionBorrador = {cambiar_borrador}/>
             <Barra_Colores funcionColor = {cambiar_color}/>
             <Barra_Grosor funcionGrosor = {cambiar_grosor}/>
-            <Barra_Funciones funcionLimpiar = {limpiar_pizarra}/>
+            <Barra_Funciones funcionLimpiar = {limpiar_pizarra}/>        
             <Barra_Figuras/>
-            <Subir_Imagen/>
         </div>
 
 
