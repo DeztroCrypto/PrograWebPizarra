@@ -12,7 +12,7 @@ import Barra_Figuras from "./Barra_Figuras";
 function App() {
     const [figura,setFigura] = useState("linea")
     const [colorAct,setColor] = useState("black")
-    const [grosorAct,setGrosor] = useState(1)
+    const [grosorAct,setGrosor] = useState(3)
 
     const cambiar_color = (element) =>{
         setColor(element.target.value)
@@ -24,24 +24,35 @@ function App() {
 
     const cambiar_lapiz = () => {
         setFigura("linea")
-        setColor("black")
+        if(colorAct === "#ffffff"){
+            setColor("black")
+        }
     }
 
     const cambiar_borrador = () => {
         setFigura("linea")
-        setColor("white")
+        setColor("#ffffff")
     }
 
     const dibujarCuadrado = () => {
         setFigura("cuadrado")
+        if(colorAct === "#ffffff"){
+            setColor("black")
+        }
     }
 
     const dibujarTriangulo = () => {
         setFigura("triangulo")
+        if(colorAct === "#ffffff"){
+            setColor("black")
+        }
     }
 
     const dibujarCirculo = () => {
         setFigura("circulo")
+        if(colorAct === "#ffffff"){
+            setColor("black")
+        }
     }
 
     const limpiar_pizarra = () => {
