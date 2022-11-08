@@ -22,11 +22,6 @@ const DrawingCanvas = (props) => {
   let color = props.color
   let grosor = props.grosor
   let figura = props.figura
-  let ancho = 100
-  let largo = 100
-
-  let altura = 80
-  let base = 120
 
   const canvasRef = useRef(null)
   const contextRef = useRef(null)
@@ -200,12 +195,20 @@ const DrawingCanvas = (props) => {
     stopDrawTriangle(nativeEvent)
   }
 
+  const functionOnMouseOut = (nativeEvent) => {
+    stopDrawing(nativeEvent)
+    stopDrawRect(nativeEvent)
+    stopDrawCircle(nativeEvent)
+    stopDrawTriangle(nativeEvent)
+  }
+
   return (
     <canvas className="canvas-container" id='pizarra'
       ref={canvasRef}
       onMouseDown={funcionOnMouseDown}
       onMouseMove={functionOnMouseMove}
-      onMouseUp={functionOnMouseUp}>
+      onMouseUp={functionOnMouseUp}
+      onMouseOut={functionOnMouseOut}>
     </canvas>
   )
 }
