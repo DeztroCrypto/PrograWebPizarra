@@ -40,6 +40,10 @@ function App() {
         setFigura("triangulo")
     }
 
+    const dibujarCirculo = () => {
+        setFigura("circulo")
+    }
+
     const limpiar_pizarra = () => {
         const canvas = document.getElementById('pizarra')
         const context = canvas.getContext("2d");
@@ -54,13 +58,17 @@ function App() {
                 grosor = {grosorAct}
                 figura = {figura}
             />
-            <Barra_Herramientas funcionPincel = {cambiar_lapiz} funcionBorrador = {cambiar_borrador}/>
+            <Barra_Herramientas
+                funcionPincel = {cambiar_lapiz}
+                funcionBorrador = {cambiar_borrador}/>
             <Barra_Colores funcionColor = {cambiar_color}/>
             <Barra_Grosor funcionGrosor = {cambiar_grosor}/>
 
             <Barra_Funciones funcionLimpiar = {limpiar_pizarra}/>
-            <Barra_Figuras funcionFiguraCuadrado = {dibujarCuadrado} funcionFiguraTriangulo = {dibujarTriangulo}/>
-
+            <Barra_Figuras 
+                funcionFiguraCuadrado = {dibujarCuadrado}
+                funcionFiguraTriangulo = {dibujarTriangulo}
+                funcionFiguraCirculo = {dibujarCirculo}/>
         </div>
     </div>
 
