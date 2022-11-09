@@ -6,36 +6,36 @@ export function subir_imagen() {
   const file = document.querySelector('input[type=file]').files[0]
   const canvas = document.getElementById('pizarra')
   const context = canvas.getContext('2d')
-  
+
   img.src = URL.createObjectURL(file)
-   
+
   img.onload = () => {
-      
-    context.drawImage(img,0,0) 
-    }
-    console.log(img)
-  
+
+    context.drawImage(img, 0, 0)
+  }
+  console.log(img)
+
 }
 
-
+var imdata
 const DrawingCanvas = (props) => {
   let color = props.color
   let grosor = props.grosor
   let figura = props.figura
-  let ancho = 100
-  let largo = 100
 
-  let altura = 80
-  let base = 120
-  let lado = 100
-  const canvasRef = useRef(null);
-  const contextRef = useRef(null);
+  const canvasRef = useRef(null)
+  const contextRef = useRef(null)
+  const startX = useRef(null)
+  const startY = useRef(null)
 
   const [isDrawing, setIsDrawing] = useState(false);
+  const [isDrawingRect, setDrawingRect] = useState(false);
+  const [isDrawingCircle, setDrawingCircle] = useState(false);
+  const [isDrawingTriangle, setDrawingTriangle] = useState(false);
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = 1000;
-    canvas.height = 1000;
+    canvas.width = 900;
+    canvas.height = 600;
 
 
     const context = canvas.getContext("2d");
@@ -68,47 +68,147 @@ const DrawingCanvas = (props) => {
   };
 
   const stopDrawing = ({ nativeEvent }) => {
+    if (!isDrawing) {
+      return;
+    }
     contextRef.current.closePath();
     setIsDrawing(false);
   };
 
-  const drawRectangle = ({ nativeEvent }) => {
+  const startDrawRectangle = ({ nativeEvent }) => {
     if (figura === "cuadrado") {
-      contextRef.current.strokeStyle = color;
-      contextRef.current.lineWidth = grosor;
-      const offsetXInicial = nativeEvent.offsetX - (ancho/2)
-      const offsetYInicial = nativeEvent.offsetY - (largo/2)
-      contextRef.current.strokeRect(offsetXInicial,offsetYInicial,ancho,largo)
+      startX.current = nativeEvent.offsetX
+      startY.current = nativeEvent.offsetY
+      imdata = contextRef.current.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)
+      setDrawingRect(true)
     }
   }
 
-  const drawTriangle = ({nativeEvent}) => {
-    if(figura === "triangulo"){
-      contextRef.current.strokeStyle = color;
-      contextRef.current.lineWidth = grosor;
-      const offsetXInicial = nativeEvent.offsetX
-      const offsetYInicial = nativeEvent.offsetY - (altura/2)
-      contextRef.current.beginPath()
-      contextRef.current.moveTo(offsetXInicial,offsetYInicial)
-      contextRef.current.lineTo(offsetXInicial+(base/2),offsetYInicial+altura)
-      contextRef.current.lineTo(offsetXInicial-(base/2),offsetYInicial+altura)
-      contextRef.current.closePath()
-      contextRef.current.stroke()
+  const drawRectangle = ({ nativeEvent }) => {
+    if (!isDrawingRect) {
+      return
     }
+    const newPosX = nativeEvent.offsetX
+    const newPosY = nativeEvent.offsetY
+    const rectWidth = newPosX - startX.current
+    const rectHeight = newPosY - startY.current
+
+    contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
+    contextRef.current.putImageData(imdata, 0, 0)
+    contextRef.current.strokeRect(startX.current, startY.current, rectWidth, rectHeight)
+
+  }
+
+  const stopDrawRect = ({ nativeEvent }) => {
+    if (!isDrawingRect) {
+      return
+    }
+    setDrawingRect(false)
+  }
+
+  const startDrawCircle = ({ nativeEvent }) => {
+    if (figura === "circulo") {
+      startX.current = nativeEvent.offsetX
+      startY.current = nativeEvent.offsetY
+
+      imdata = contextRef.current.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)
+      setDrawingCircle(true)
+    }
+  }
+
+  const drawCircle = ({ nativeEvent }) => {
+    if (!isDrawingCircle) {
+      return
+    }
+    const newPosX = nativeEvent.offsetX
+    const newPosY = nativeEvent.offsetY
+    const radioX = Math.abs(newPosX - startX.current)
+    const radioY = Math.abs(newPosY - startY.current)
+    const radioMax = Math.max(radioX, radioY)
+    contextRef.current.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
+    contextRef.current.putImageData(imdata, 0, 0)
+
+    contextRef.current.beginPath()
+    contextRef.current.arc(startX.current, startY.current, radioMax, 0, 2 * Math.PI)
+    contextRef.current.stroke()
+
+  }
+
+  const stopDrawCircle = ({ nativeEvent }) => {
+    if (!isDrawingCircle) {
+      return
+    }
+    setDrawingCircle(false)
+  }
+
+  const startDrawTriangle = ({ nativeEvent }) => {
+    if (figura === "triangulo") {
+      startX.current = nativeEvent.offsetX
+      startY.current = nativeEvent.offsetY
+      imdata = contextRef.current.getImageData(0, 0, canvasRef.current.width, canvasRef.current.height)
+      setDrawingTriangle(true)
+    }
+  }
+
+  const drawTriangle = ({ nativeEvent }) => {
+    if (!isDrawingTriangle) {
+      return
+    }
+    contextRef.current.clearRect(0, 0,canvasRef.current.width, canvasRef.current.height);
+    contextRef.current.putImageData(imdata, 0, 0)
+
+    contextRef.current.beginPath();
+    contextRef.current.moveTo(startX.current, startY.current);
+    contextRef.current.lineTo(nativeEvent.offsetX, nativeEvent.offsetY);
+    contextRef.current.lineTo(startX.current * 2 - nativeEvent.offsetX, nativeEvent.offsetY);
+    contextRef.current.closePath();
+    contextRef.current.stroke();
+  }
+
+  const stopDrawTriangle = ({nativeEvent}) => {
+    if (!isDrawingTriangle) {
+      return
+    }
+    setDrawingTriangle(false)
   }
 
   const funcionOnMouseDown = (nativeEvent) => {
+    contextRef.current.strokeStyle = color
+    contextRef.current.lineWidth = grosor
     startDrawing(nativeEvent)
+    startDrawRectangle(nativeEvent)
+    startDrawCircle(nativeEvent)
+    startDrawTriangle(nativeEvent)
+  }
+
+  const functionOnMouseMove = (nativeEvent) => {
+    draw(nativeEvent)
     drawRectangle(nativeEvent)
-    drawTriangle (nativeEvent)
+    drawCircle(nativeEvent)
+    drawTriangle(nativeEvent)
+  }
+
+  const functionOnMouseUp = (nativeEvent) => {
+    stopDrawing(nativeEvent)
+    stopDrawRect(nativeEvent)
+    stopDrawCircle(nativeEvent)
+    stopDrawTriangle(nativeEvent)
+  }
+
+  const functionOnMouseOut = (nativeEvent) => {
+    stopDrawing(nativeEvent)
+    stopDrawRect(nativeEvent)
+    stopDrawCircle(nativeEvent)
+    stopDrawTriangle(nativeEvent)
   }
 
   return (
     <canvas className="canvas-container" id='pizarra'
       ref={canvasRef}
       onMouseDown={funcionOnMouseDown}
-      onMouseMove={draw}
-      onMouseUp={stopDrawing}>
+      onMouseMove={functionOnMouseMove}
+      onMouseUp={functionOnMouseUp}
+      onMouseOut={functionOnMouseOut}>
     </canvas>
   )
 }

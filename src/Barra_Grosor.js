@@ -3,9 +3,14 @@ import './styles.css'
 
 const Barra_Grosor = (props) => {
     return(
-        <>
-        <input type="range"  min="1" max="100" class="selector_color" onChange={props.funcionGrosor}></input>
-        </>
+        <div className="w3-container grosor">
+            <div className="gros">
+                 <input type="range"  id = "vol"  name="vol" min="1" max="10" defaultValue={1} class="selector_color"
+                     onChange={props.funcionGrosor} >          
+                  </input>
+            </div>
+              
+        </div>
     )
 }
 
