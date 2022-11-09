@@ -34,8 +34,8 @@ const DrawingCanvas = (props) => {
   const [isDrawingTriangle, setDrawingTriangle] = useState(false);
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = 1000;
-    canvas.height = 1000;
+    canvas.width = 900;
+    canvas.height = 600;
 
 
     const context = canvas.getContext("2d");
