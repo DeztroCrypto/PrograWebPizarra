@@ -27,14 +27,24 @@ const DrawingCanvas = (props) => {
   const [isDrawingImg, setDrawingImg] = useState(false);
   useEffect(() => {
     const canvas = canvasRef.current;
-    canvas.width = 900;
-    canvas.height = 600;
+
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+
     const context = canvas.getContext("2d");
     context.lineCap = "round";
     context.lineJoin = "round";
     contextRef.current = context;
   }, []);
   
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    let imInit = contextRef.current.getImageData(0, 0, canvas.width, canvas.height)
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+    contextRef.current.putImageData(imInit, 0, 0)
+  },[window.innerHeight,window.innerWidth])
 
   const startDrawing = ({ nativeEvent }) => {
     if (figura === "linea") {

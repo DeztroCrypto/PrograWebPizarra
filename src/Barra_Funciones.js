@@ -22,6 +22,7 @@ const Barra_Funciones = (props) => {
                 
                 <Boton_Opcion nombre = "Borrar" onClick = {props.funcionLimpiar}/>
                 <Boton_Opcion nombre = "Subir" input = {<input class="sub" type='file' id="inp"  multiple  onChange={props.funcionFiguraImagen} />} />
+
             </div>
         
         </div>
