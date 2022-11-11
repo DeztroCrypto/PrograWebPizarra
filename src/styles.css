@@ -1,60 +1,15 @@
-.principal{
-    margin-top: 20px;
-}
-
 .canvas-container{
-    height: 600px;
     border: 2px solid black;    
 }
 div.guardado{
     width: 20%;
-    margin: 3px;
-    border: 1px solid black;
-    text-align: center;
-    justify-content: center;
-    
+    margin: 10px;
+    border: 1px solid black;   
 }
-
-#contenedorLienzos{
-    overflow-y: scroll;
-    height: 500px;
-}
-
-#lienzos{
-  display: inline-block;
-  vertical-align: right;
-  height: auto;
-  margin-top: 5px;
-  padding-top: 10px;
-  border-top: solid 2px;
-  
-}
-
-.botonCRUD{
-    height: auto;
-    width:fit-content;
-    margin-left: 5px;
-}
-
-#elementoLienzo{
-    border-bottom: solid 3px;
-    height:fit-content;
-}
-
-#lienzoGuardado{
-    width: 95%;
-    height: 160px;
-    border: 2px solid black;
-}
-
-#botonesLienzoGuardado{
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
 div.pizarra{
-    width: 58%;
-    margin: 2px;
+    width: 60%;
+    margin: 10px;
+    
 }
 div.pizarra #pizarra{
     width: 100%;
@@ -65,9 +20,8 @@ div.tools{
     width: 20%;
     border: 1px solid black;
     padding: 10px;
-    height: 600px;
-    padding-top: 70px;
-    margin: 2px;
+    height: 100%;
+    margin: 10px;
   }
 .boton_imagen{
     
@@ -105,7 +59,6 @@ div.tools{
 }
 button.func{
     position: relative;
-    margin-top: 10px;
 }
 input.sub{
     opacity: 0;
@@ -172,43 +125,10 @@ div.figuras .fig{
 
 div.funciones{
     width: 100%;
-    margin-top: 10px;
+    margin: 10px;
 }
 div.funciones .fun{
-    width: 100%;   
+    width: 100%;
     text-align: center;
-}
-div.tamImg{
-    width: 100%;
-    margin: 5px;
-    display:flex;
-    align-items: center;
-    justify-content:center;
     
 }
-div.widthImg{
-    width: 50%
-}
-div.heightImg{
-    width: 50%;
-}
-input#h{
-    width: 100%;
-}
-input#w{
-    width: 100%;
-}
-div.btnResize{
-    width: 100%;
-    display:flex;
-    align-items: center;
-    justify-content:center;
-}
-button#btnR{
-    width: 100%;
-    font-size: 12px;
-}
-
-    
-
-

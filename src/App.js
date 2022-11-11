@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import DrawingCanvas, { subir_imagen } from "./DrawingCanvas";
-import { obtenerId } from "./DrawingCanvas";
+import DrawingCanvas from "./DrawingCanvas";
 import Barra_Herramientas from "./Barra_Herramientas";
 import Barra_Colores from "./Barra_Colores"
 import Barra_Grosor from "./Barra_Grosor";
@@ -8,19 +7,23 @@ import Barra_Funciones from "./Barra_Funciones";
 import "./styles.css"
 import "./w3.css"
 import Barra_Figuras from "./Barra_Figuras";
+
 import imagenes from "./imagenes";
+
 
 
 function App() {
     const [figura,setFigura] = useState("linea")
     const [colorAct,setColor] = useState("black")
     const [grosorAct,setGrosor] = useState(3)
+
     const [img,setImg] = useState(null)
     const [newImg,setnewImg] = useState(null)
     const [newWidth,setWidth] = useState(200)
     const [newHeight,setHeight] = useState(200)
 
     let idImg
+
 
     const cambiar_color = (element) =>{
         setColor(element.target.value)
@@ -36,12 +39,14 @@ function App() {
             setColor("black")
         }
         document.getElementById("resize").style.display = "none";
+
     }
 
     const cambiar_borrador = () => {
         setFigura("linea")
         setColor("#ffffff")
         document.getElementById("resize").style.display = "none";
+
     }
 
     const dibujarCuadrado = () => {
@@ -50,6 +55,7 @@ function App() {
             setColor("black")
         }
         document.getElementById("resize").style.display = "none";
+
     }
 
     const dibujarTriangulo = () => {
@@ -57,7 +63,9 @@ function App() {
         if(colorAct === "#ffffff"){
             setColor("black")
         }
+
         document.getElementById("resize").style.display = "none";
+
     }
 
     const dibujarCirculo = () => {
@@ -66,6 +74,7 @@ function App() {
             setColor("black")
         }
         document.getElementById("resize").style.display = "none";
+
     }
 
     const limpiar_pizarra = () => {
@@ -73,6 +82,7 @@ function App() {
         const context = canvas.getContext("2d");
         context.fillStyle = "white";
         context.clearRect(0, 0, canvas.width, canvas.height);
+
         document.getElementById("resize").style.display = "none";
       }
     const subir_imagen = () => {
@@ -127,6 +137,7 @@ function App() {
         setFigura('img')
 
         setImg(img)
+
       }
     
     return <div className="w3-container principal">
@@ -138,10 +149,6 @@ function App() {
                 color = {colorAct}
                 grosor = {grosorAct}
                 figura = {figura}
-                img = {img}
-                newImg = {newImg}
-                newWidth = {newWidth}
-                newHeight = {newHeight}
             ></DrawingCanvas>
         </div>
         <div className="w3-col tools">
