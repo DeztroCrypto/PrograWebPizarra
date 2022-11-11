@@ -6,7 +6,7 @@ const Barra_Funciones = (props) => {
         <div className="w3-container funciones">
             <div className="fun">
                 <Boton_Opcion nombre = "Borrar" onClick = {props.funcionLimpiar}/>
-                <Boton_Opcion nombre = "Subir" input = {<input class="sub" type='file' id="inp"  multiple  onChange={subir_imagen}/>}/>
+                <Boton_Opcion nombre = "Subir" input = {<input class="sub" type='file' id="inp"  multiple  onChange={subir_imagen}/>} />
             </div>
         
         </div>
