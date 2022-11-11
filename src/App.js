@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import DrawingCanvas from "./DrawingCanvas";
+import DrawingCanvas, { subir_imagen } from "./DrawingCanvas";
+import { obtenerId } from "./DrawingCanvas";
 import Barra_Herramientas from "./Barra_Herramientas";
 import Barra_Colores from "./Barra_Colores"
 import Barra_Grosor from "./Barra_Grosor";
@@ -7,16 +8,13 @@ import Barra_Funciones from "./Barra_Funciones";
 import "./styles.css"
 import "./w3.css"
 import Barra_Figuras from "./Barra_Figuras";
-
-import imagenes from "./imagenes";
-
+import { useEffect } from "react";
 
 
 function App() {
     const [figura,setFigura] = useState("linea")
     const [colorAct,setColor] = useState("black")
     const [grosorAct,setGrosor] = useState(3)
-
     const [img,setImg] = useState(null)
     const [newImg,setnewImg] = useState(null)
     const [newWidth,setWidth] = useState(200)
@@ -25,64 +23,67 @@ function App() {
     let idImg
 
 
-    const cambiar_color = (element) =>{
-        setColor(element.target.value)
+  const cambiar_color = (element) => {
+    setColor(element.target.value)
+  }
+
+
+  const cambiar_grosor = (element) => {
+    setGrosor(element.target.value)
+  }
+
+  const cambiar_lapiz = () => {
+    setFigura("linea")
+    if (colorAct === "#ffffff") {
+      setColor("black")
     }
+    document.getElementById("resize").style.display = "none";
+  }
 
-    const cambiar_grosor = (element) =>{
-        setGrosor(element.target.value)
+  const cambiar_borrador = () => {
+    setFigura("linea")
+    setColor("#ffffff")
+    document.getElementById("resize").style.display = "none";
+  }
+
+  const dibujarCuadrado = () => {
+    setFigura("cuadrado")
+    if (colorAct === "#ffffff") {
+      setColor("black")
     }
+    document.getElementById("resize").style.display = "none";
+  }
 
-    const cambiar_lapiz = () => {
-        setFigura("linea")
-        if(colorAct === "#ffffff"){
-            setColor("black")
-        }
-        document.getElementById("resize").style.display = "none";
 
-    }
-
-    const cambiar_borrador = () => {
-        setFigura("linea")
-        setColor("#ffffff")
-        document.getElementById("resize").style.display = "none";
-
-    }
-
-    const dibujarCuadrado = () => {
-        setFigura("cuadrado")
-        if(colorAct === "#ffffff"){
-            setColor("black")
-        }
-        document.getElementById("resize").style.display = "none";
-
-    }
-
-    const dibujarTriangulo = () => {
-        setFigura("triangulo")
-        if(colorAct === "#ffffff"){
-            setColor("black")
-        }
-
-        document.getElementById("resize").style.display = "none";
+  const dibujarTriangulo = () => {
+    setFigura("triangulo")
+    if (colorAct === "#ffffff") {
+      setColor("black")
 
     }
+    document.getElementById("resize").style.display = "none";
+  }
 
-    const dibujarCirculo = () => {
-        setFigura("circulo")
-        if(colorAct === "#ffffff"){
-            setColor("black")
-        }
-        document.getElementById("resize").style.display = "none";
+
+
+
+  const dibujarCirculo = () => {
+    setFigura("circulo")
+    if (colorAct === "#ffffff") {
+      setColor("black")
 
     }
+    document.getElementById("resize").style.display = "none";
+  } 
+
+  
+
 
     const limpiar_pizarra = () => {
         const canvas = document.getElementById('pizarra')
         const context = canvas.getContext("2d");
         context.fillStyle = "white";
         context.clearRect(0, 0, canvas.width, canvas.height);
-
         document.getElementById("resize").style.display = "none";
       }
     const subir_imagen = () => {
@@ -110,7 +111,9 @@ function App() {
         setFigura('img')
         
         setImg(img)
-    
+        document.querySelector('#inp').addEventListener('onchange', function  (e){
+            e.currentTarget.files = null;
+        })
       }
 
       const resizeImg = () =>{
@@ -137,7 +140,6 @@ function App() {
         setFigura('img')
 
         setImg(img)
-
       }
     
     return <div className="w3-container principal">
@@ -149,6 +151,10 @@ function App() {
                 color = {colorAct}
                 grosor = {grosorAct}
                 figura = {figura}
+                img = {img}
+                newImg = {newImg}
+                newWidth = {newWidth}
+                newHeight = {newHeight}
             ></DrawingCanvas>
         </div>
         <div className="w3-col tools">
@@ -169,10 +175,9 @@ function App() {
             </div>          
         </div>
         
-           
+    </div>  
 
         
-    </div>
 
 }
 
